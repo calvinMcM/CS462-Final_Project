@@ -1,0 +1,17 @@
+{
+  "name": "loginserver",
+  "version": "1.0.0",
+  "description": "The login server for he CS 462 final project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "login"
+  ],
+  "author": "Calvin McMurray",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
