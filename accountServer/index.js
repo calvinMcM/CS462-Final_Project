@@ -1,5 +1,9 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
+// Set up public routes
+app.use(express.static('public'));
+
+// Mongo DB
 
 // File System
 const fs = require('fs');

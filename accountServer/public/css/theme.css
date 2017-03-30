@@ -1,0 +1,26 @@
+.theme{
+    background-color: #6688aa;
+    color:white;
+}
+
+.box{
+    border-radius: 5px;
+    border: solid 1px #cccccc;
+    min-height: 5em;
+}
+
+.left-justified{
+    text-align: left;
+}
+
+.right-justified{
+    text-align: right;
+}
+
+.separate{
+    margin: 4px;
+}
+
+.bare{
+    margin: 0;
+}
