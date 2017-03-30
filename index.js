@@ -11,7 +11,7 @@ fs.readFile('config.json',function(err,data){
     }
     else{
         data = JSON.parse(data);
-        console.log("Found data:",data);
+        // console.log("Found data:",data);
         run(data);
     }
 })
