@@ -1,0 +1,34 @@
+.theme{
+    background-color: #0275d8;
+    color:white;
+}
+
+.box{
+    border-radius: 5px;
+    border: solid 1px #cccccc;
+    min-height: 5em;
+}
+
+.left-justified{
+    text-align: left;
+}
+
+.right-justified{
+    text-align: right;
+}
+
+.separate{
+    margin: 4px;
+}
+
+.bare{
+    margin: 0;
+}
+
+.titles{
+    font-size: 25px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 4px 0px 0px 4px;
+    margin: 10px 3px 3px 3px;
+}
