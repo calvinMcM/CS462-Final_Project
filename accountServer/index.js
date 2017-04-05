@@ -20,15 +20,25 @@ fs.readFile('config.json',function(err,data){
     }
 })
 
+// Event Queue
+var eventQueueClass = require('./javascript/eventQueue')
+var eventQueue = new evenQueueClass(500); // half second delay
 
 function run(config){
+    eventQueue.run();
 
-app.get('/', function (req, res) {
-  res.sendFile('views/index.html',{root: __dirname})
-})
+    // Eventually there will be no GET
+    app.get('/', function (req, res) {
+      res.sendFile('views/index.html',{root: __dirname})
+    })
 
-app.listen(config.port, function () {
-  console.log('Example app listening on port',config.port + '!')
-})
+    // User data needed event
+    app.post("/users/:id",function(req, res){
+        // Find the user with the matching ID and use some of the post data to send back key user data
+    })
+
+    app.listen(config.port, function () {
+      console.log('Example app listening on port',config.port + '!')
+    })
 
 }
