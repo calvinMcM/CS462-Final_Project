@@ -21,11 +21,11 @@ fs.readFile('config.json',function(err,data){
 })
 
 // Event Queue
-var eventQueueClass = require('./javascript/eventQueue')
-var eventQueue = new eventQueueClass(500); // half second delay
+// var eventQueueClass = require('./javascript/eventQueue')
+// var eventQueue = new eventQueueClass(500); // half second delay
 
 function run(config){
-    eventQueue.run();
+    // eventQueue.run();
 
     // Eventually there will be no GET
     app.get('/', function (req, res) {
