@@ -31,6 +31,11 @@ app.get('/login', function (req, res) {
     // Verify user credentials and assign to a slave server.
 })
 
+app.get('/googleCallback', function (req, res) {
+  console.log("Got something back from Google")
+  console.log(req)
+})
+
 app.listen(config.port, function () {
   console.log('Example app listening on port',config.port + '!')
 })
