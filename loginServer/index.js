@@ -32,25 +32,28 @@ fs.readFile('config.json',function(err,data){
 })
 
 function createNewUser(userID, username){
-    var chosenURL = "http://www.placeholder.com";
-    var testAccount1 = new userAccount({
+    var chosenURL = "http://www.google.com";
+    var newAccount = new userAccount({
       "_id":userID,
       "username":username,
       "url":chosenURL
     })
+    newAccount.save();
+    return newAccount;
 }
 
-function fromLoginGetDatabaseInfo(userID, username){
+function fromLoginGetDatabaseInfo(userID, username, res){
     userAccount.findOne({"_id": userID}, function(err,user) {
       if (err) return console.error(err);
       else {
         console.log(user);
         if (!user){ //there is no user with specified id. Create a new one
-            createNewUser(userID, username);
+            user = createNewUser(userID, username);
         }
-        else{
-            console.log(user[0])
-        }
+        res.json({
+          "id": userID,
+          "url": user.url
+        })
       }
     })
 }
@@ -71,6 +74,7 @@ function run(config){
     })
 
     app.post('/googleCallback', function (req, res) {
+      fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
       console.log("Got something back from Google")
       console.log(req.body)
     })
