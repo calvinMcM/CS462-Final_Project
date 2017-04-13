@@ -42,7 +42,7 @@ function createNewUser(userID, username){
     return newAccount;
 }
 
-function fromLoginGetDatabaseInfo(userID, username, res){
+function fromLoginGetDatabaseInfo(userID, username){
     userAccount.findOne({"_id": userID}, function(err,user) {
       if (err) return console.error(err);
       else {
@@ -50,10 +50,7 @@ function fromLoginGetDatabaseInfo(userID, username, res){
         if (!user){ //there is no user with specified id. Create a new one
             user = createNewUser(userID, username);
         }
-        res.json({
-          "id": userID,
-          "url": user.url
-        })
+        return user.url;
       }
     })
 }
@@ -82,9 +79,8 @@ function run(config){
      *
      */
     app.post('/googleCallback', function (req, res) {
-      fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
-      console.log("Got something back from Google")
-      console.log(req.body)
+      var url = fromLoginGetDatabaseInfo(req.body.username, req.body.userId)
+      res.send(url)
     })
 
     app.listen(config.port, function () {

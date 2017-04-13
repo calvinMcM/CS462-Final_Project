@@ -10,6 +10,6 @@ function onSignIn(googleUser) {
       // Should check for 400's...
     console.log("Data sent")
     console.log("recieved data", data)
-    window.location = data.url
+    window.location = data
   })
 }
