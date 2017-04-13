@@ -23,9 +23,10 @@ fs.readFile('config.json',function(err,data){
 
 function register(data){
     request.post({
-        url:"34.208.82.175:3000",
-        body: data
+        url:"http://34.208.82.175:3000/registerAppServer",
+        body: JSON.stringify(data)
     },function(response){
+	console.log("Registry complete with:", response);
         run(data);
     })
 }
