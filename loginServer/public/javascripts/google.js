@@ -4,9 +4,7 @@ function onSignIn(googleUser) {
   console.log("data to be sent", userInfo)
 
   // Session storage set
-  var ss = Window.sessionstorage;
-  ss.setItem("StoryTimeID",profile.getId());
-
+  sessionStorage.setItem("StoryTimeID",profile.getId());
   $.post('googleCallback', userInfo, function(data) {
 
       // Should check for 400's...
