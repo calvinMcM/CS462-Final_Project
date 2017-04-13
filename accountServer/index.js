@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var request = require('request');
 // Set up public routes
 app.use(express.static('public'));
 
@@ -16,9 +17,25 @@ fs.readFile('config.json',function(err,data){
     else{
         data = JSON.parse(data);
         // console.log("Found data:",data);
-        run(data);
+        register(data);
     }
 })
+
+
+app.post('/registered',function(req,res){
+        console.log(req.body);
+});
+
+
+function register(data){
+    request.post({
+        url:"http://34.208.82.175:3000/registerAppServer",
+        form: data
+    },function(response){
+	console.log("Registry complete with:", response);
+        run(data);
+    })
+}
 
 // Event Queue
 // var eventQueueClass = require('./javascript/eventQueue')

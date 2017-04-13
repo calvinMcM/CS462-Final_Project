@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var request = require('request');
+
 // Set up public routes
 
 
@@ -13,6 +15,12 @@ var userAccountSchema = mongoose.Schema({
     url: String
 });
 var userAccount = mongoose.model("userAccount", userAccountSchema);
+
+var serverSchema = mongoose.Schema({
+    _id:String
+})
+var server = mongoose.model("server", serverSchema)
+
 // File System
 const fs = require('fs');
 var bodyParser = require('body-parser')
@@ -60,9 +68,22 @@ function fromLoginGetDatabaseInfo(userID, username, res){
         if (!user){ //there is no user with specified id. Create a new one
             user = createNewUser(userID, username);
         }
-        res.json({
-          "id": userID,
-          "url": user.url
+        if (user.url == "http://www.google.com"){
+            res.json({
+              "id": userID,
+              "url": user.url
+            })
+            return;
+        }
+        request.post({
+            url: user.url,
+            form: user
+        },
+        function(response){
+            res.json({
+              "id": userID,
+              "url": user.url
+            })
         })
       }
     })
@@ -78,19 +99,26 @@ function run(config){
         // Verify user credentials and assign to a slave server.
     })
 
+
     app.post('/registerAppServer', function(req, res, next) {
       var url = "http://" + req.ip.substring(7, req.ip.length);
       url += (':' + req.body.port);
       registeredAppServers.push(url);
+      server.save({"_id":url});
       console.log(registeredAppServers);
       res.send("your url was" + req.ip);
     })
+
 
     app.post('/facebookCallback', function (req, res) {
       console.log("Got something back from Facebook")
       console.log(req.body)
     })
 
+    /**
+     * The handler for getting information back from Google
+     *
+     */
     app.post('/googleCallback', function (req, res) {
       fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
       console.log("Got something back from Google")
