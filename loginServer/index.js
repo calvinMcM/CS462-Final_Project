@@ -68,13 +68,20 @@ function run(config){
         // Verify user credentials and assign to a slave server.
     })
 
+    /**
+     * The handler for getting information back from Facebook
+     *
+     */
     app.post('/facebookCallback', function (req, res) {
       console.log("Got something back from Facebook")
       console.log(req.body)
     })
 
+    /**
+     * The handler for getting information back from Google
+     *
+     */
     app.post('/googleCallback', function (req, res) {
-
       fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
       console.log("Got something back from Google")
       console.log(req.body)
