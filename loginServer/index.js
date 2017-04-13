@@ -73,6 +73,7 @@ function fromLoginGetDatabaseInfo(userID, username, res){
               "id": userID,
               "url": user.url
             })
+            console.log("returning google")
             return;
         }
         request.post({
@@ -120,9 +121,7 @@ function run(config){
      *
      */
     app.post('/googleCallback', function (req, res) {
-      fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
-      console.log("Got something back from Google")
-      console.log(req.body)
+      var url = fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
     })
 
     app.listen(config.port, function () {
