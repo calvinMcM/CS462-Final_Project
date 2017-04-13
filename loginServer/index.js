@@ -74,6 +74,7 @@ function run(config){
     })
 
     app.post('/googleCallback', function (req, res) {
+
       fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
       console.log("Got something back from Google")
       console.log(req.body)
