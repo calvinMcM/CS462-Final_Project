@@ -7,6 +7,9 @@ app.use(express.static('public'));
 
 // File System
 const fs = require('fs');
+var bodyParser = require('body-parser')
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Read configuration file before running.
 fs.readFile('config.json',function(err,data){
@@ -31,9 +34,9 @@ app.get('/login', function (req, res) {
     // Verify user credentials and assign to a slave server.
 })
 
-app.get('/googleCallback', function (req, res) {
+app.post('/googleCallback', function (req, res) {
   console.log("Got something back from Google")
-  console.log(req)
+  console.log(req.body)
 })
 
 app.listen(config.port, function () {
