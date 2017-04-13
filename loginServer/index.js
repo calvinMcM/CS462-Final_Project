@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 // Set up public routes
 
+
 app.use(express.static('public'));
 
 var mongoose = require('mongoose')
@@ -11,8 +12,7 @@ var userAccountSchema = mongoose.Schema({
     username: String,
     url: String
 });
-var userAccount = mongoose.model('userAccount', userAccountSchema);
-
+var userAccount = mongoose.model("userAccount", userAccountSchema);
 // File System
 const fs = require('fs');
 var bodyParser = require('body-parser')
@@ -31,8 +31,16 @@ fs.readFile('config.json',function(err,data){
     }
 })
 
+function getLightestServerUrl(){
+    if (registeredAppServers.length == 0) return "http://www.google.com";
+    var lightestServer = null;
+    var numUsers = 0;
+    var random = Math.floor(Math.random() * (registeredAppServers.length));
+    return registeredAppServers[random]
+}
+
 function createNewUser(userID, username){
-    var chosenURL = "http://www.google.com";
+    var chosenURL = getLightestServerUrl();
     var newAccount = new userAccount({
       "_id":userID,
       "username":username,
@@ -41,6 +49,8 @@ function createNewUser(userID, username){
     newAccount.save();
     return newAccount;
 }
+
+var registeredAppServers = [];
 
 function fromLoginGetDatabaseInfo(userID, username, res){
     userAccount.findOne({"_id": userID}, function(err,user) {
@@ -68,13 +78,20 @@ function run(config){
         // Verify user credentials and assign to a slave server.
     })
 
+    app.post('/registerAppServer', function(req, res, next) {
+      var url = "http://" + req.ip.substring(7, req.ip.length);
+      url += (':' + req.body.port);
+      registeredAppServers.push(url);
+      console.log(registeredAppServers);
+      res.send("your url was" + req.ip);
+    })
+
     app.post('/facebookCallback', function (req, res) {
       console.log("Got something back from Facebook")
       console.log(req.body)
     })
 
     app.post('/googleCallback', function (req, res) {
-
       fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
       console.log("Got something back from Google")
       console.log(req.body)
