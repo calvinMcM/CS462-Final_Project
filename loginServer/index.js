@@ -38,13 +38,12 @@ fs.readFile('config.json',function(err,data){
         run(data);
     }
 })
-
+var counter = 0;
 function getLightestServerUrl(){
     if (registeredAppServers.length == 0) return "http://www.google.com";
-    var lightestServer = null;
-    var numUsers = 0;
-    var random = Math.floor(Math.random() * (registeredAppServers.length));
-    return registeredAppServers[random]
+    var selected = counter;
+    counter = (counter + 1) % registeredAppServers.length;
+    return registeredAppServers[selected]
 }
 
 function createNewUser(userID, username){
