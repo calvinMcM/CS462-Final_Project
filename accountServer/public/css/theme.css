@@ -1,5 +1,5 @@
 .theme{
-    background-color: #6688aa;
+    background-color: #0275d8;
     color:white;
 }
 
@@ -23,4 +23,12 @@
 
 .bare{
     margin: 0;
+}
+
+.titles{
+    font-size: 25px;
+    border-radius: 5px;
+    width: 100%;
+    padding: 4px 0px 0px 4px;
+    margin: 10px 3px 3px 3px;
 }

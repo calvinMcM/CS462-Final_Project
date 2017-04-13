@@ -4,6 +4,7 @@
     <title>StoryTime</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="createStory.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="css/theme.css"></link>
 </head>
@@ -56,27 +57,35 @@
           <p>Really cool description text</p>
         </div>
         <div id="create" class="tab-pane fade">
-          <h3>Create Story</h3>
           <div id="creation-form" class="container-fluid">
               <div class="row separate">
+                  <label for="#story-title" class="theme titles">Story Title</label><br>
                   <div class="col-sm-12 left-justified">
-                      <h3 class="bare">
-                          <label for="#story-title">Story Title</label><br>
+                      <h2 class="bare">
                           <input type="text" size="52" placeholder="Title"></input>
-                      </h3>
+                      </h2>
                   </div>
               </div>
               <div class="row separate">
-                  <div class="col-sm-10 left-justified">
-                      <label for="#tags-box">Characters</label>
+                  <label for="#characters-box" class="theme titles">Characters</label>
+                  <div class="col-sm-4 left-justified">
+                      <input type="text" size="30" id="character-maker"><br>
+                      <button id="create-character" class="btn btn-primary separate">Create</button>
+                  </div>
+                  <div class="col-sm-8 left-justified">
                       <div id="characters-box" class="box"></div>
                   </div>
               </div>
               <div class="row separate">
-                  <div class="col-sm-10 left-justified">
-                      <label for="#tags-box">Tags</label>
-                      <div id="tags-box" class="box"></div>
+                  <label for="#story-prompt" class="theme titles">Story Prompt</label><br>
+                  <div class="col-sm-12 left-justified">
+                      <h2 class="bare">
+                          <input type="text" size="52" placeholder="Title"></input>
+                      </h2>
                   </div>
+              </div>
+              <div class="row separate">
+                  <button class="btn btn-success" id="create_story">Create</button>
               </div>
           </div>
         </div>
