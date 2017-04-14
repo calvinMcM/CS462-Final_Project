@@ -15,6 +15,7 @@ const fs = require('fs');
 
 var registry = "http://34.208.82.175:3000"
 
+
 // Read configuration file before running.
 fs.readFile('config.json',function(err,data){
     if(err){
@@ -22,7 +23,6 @@ fs.readFile('config.json',function(err,data){
     }
     else{
         data = JSON.parse(data);
-        // console.log("Found data:",data);
         register(data);
     }
 })
@@ -114,12 +114,23 @@ function run(config){
 
     //Add a subscriptions (used in browser)
     app.post('/subscribe', function(req, res) {
-
+      var body = config
+      body.id = req.body.id
+      request.post({
+          url: req.body.url,
+          form: config
+        }, function(err, response){
+        res.end()
+      })
     })
 
     //Add user as a subscription
     app.post('/:id/subscribe', function(req, res) {
-
+      var url = "http://" + req.ip.substring(7, req.ip.length)
+      url += ':' + req.body.port + '/' + req.body.id + '/update'
+      var id = req.params.id
+      users[id].subscriptions.push(url)
+      res.end()
     })
 
     app.listen(config.port, function () {
