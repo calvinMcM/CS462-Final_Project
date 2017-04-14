@@ -104,6 +104,7 @@ function run(config){
         userAccount.find(function(err,users) {
           if (err) return console.error(err);
           else {
+            console.log(users)
             res.json(users)
           }
         });

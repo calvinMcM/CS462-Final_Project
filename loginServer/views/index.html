@@ -20,7 +20,9 @@
             <h3>Login</h3>
             <hr>
             <div class="col-sm-6">
-                <button class="btn btn-primary btn-lg" onclick="facebookLogin()">Facebook</button>
+                <!-- <button class="btn btn-primary btn-lg" onclick="facebookLogin()">Facebook</button> -->
+                <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+                <div id="status"></div>
             </div>
             <div class="col-sm-6">
                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
