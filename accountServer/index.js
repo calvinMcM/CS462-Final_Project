@@ -47,7 +47,6 @@ function run(config){
 
     var users = {}
 
-    // Eventually there will be no GET
     app.get('/', function (req, res) {
       res.sendFile('views/index.html',{root: __dirname})
     })
@@ -94,8 +93,14 @@ function run(config){
       users[id].personal_stories[fileName].story = []
       users[id].personal_stories[fileName].story.push(file)
       users[id].personal_story_descriptors.push(fileName)
-      //send to all subscribers
       res.end()
+      var body = {"story_descriptor": fileName, "owner": id}
+      for each (var subscription in users[id].subscriptions) {
+        request.post({
+          url: subscription,
+          form: body
+        })
+      }
     })
 
     //Add to an existing story
@@ -109,18 +114,23 @@ function run(config){
 
     //Notifies the user of a new story from a subscriber
     app.post('/:id/update', function(req, res) {
-
+      var id = req.params.id
+      var newStory = req.body.story_descriptor
+      var subscriber = req.body.owner
+      users[id].subscription_story_descriptors[subscriber].push(newStory)
     })
 
     //Add a subscriptions (used in browser)
     app.post('/subscribe', function(req, res) {
       var body = config
       body.id = req.body.id
+      subscriber = req.body.subscriber
+      users[body.id].subscription_story_descriptors[subscriber] = []
+      res.end()
       request.post({
           url: req.body.url,
           form: config
         }, function(err, response){
-        res.end()
       })
     })
 
