@@ -68,15 +68,20 @@ function fromLoginGetDatabaseInfo(userID, username, res){
             user = createNewUser(userID, username);
         }
         if (user.url == "http://www.google.com"){
-            res.json({
-              "id": userID,
-              "url": user.url
-            })
-            console.log("returning google")
-            return;
+            if (registeredAppServers.length != 0){
+              user.url = getLightestServerUrl();
+            }
+            else{
+              res.json({
+                "id": userID,
+                "url": user.url
+              })
+              console.log("returning google")
+              return;
+            }
         }
         request.post({
-            url: user.url,
+            url: user.url + "/userLogin",
             form: user
         },
         function(response){
@@ -95,18 +100,22 @@ function run(config){
         res.sendFile('views/index.html',{root: __dirname})
     })
 
-    app.get('/login', function (req, res) {
-        // Verify user credentials and assign to a slave server.
-    })
-
+    app.get('/allUsers', function (req, res) {
+        userAccount.find(function(err,users) {
+          if (err) return console.error(err);
+          else {
+            res.json(users)
+          }
+        });
+    });
 
     app.post('/registerAppServer', function(req, res, next) {
       var url = "http://" + req.ip.substring(7, req.ip.length);
       url += (':' + req.body.port);
       registeredAppServers.push(url);
-      server.save({"_id":url});
+      //server.save({"_id":url});
       console.log(registeredAppServers);
-      res.send("your url was" + req.ip);
+      res.send("your url was" + url);
     })
 
 
@@ -120,7 +129,7 @@ function run(config){
      *
      */
     app.post('/googleCallback', function (req, res) {
-      var url = fromLoginGetDatabaseInfo(req.body.username, req.body.userId, res)
+      var url = fromLoginGetDatabaseInfo(req.body.userId, req.body.username, res)
     })
 
     app.listen(config.port, function () {
