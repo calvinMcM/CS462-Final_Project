@@ -4,99 +4,29 @@
     <title>StoryTime</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="createStory.js"></script>
+    <script src="main.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="css/theme.css"></link>
 </head>
-<body>
-    <!--
-        NAVBAR
-    -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" data-toggle="tab" href="#home">StoryTime</a>
+<body class="black">
+    <div class="container-fluid spare">
+        <div class="col-sm-12 baselined" align="center">
+            <h1>StoryTime</h1>
+        </div>
+        <div class="col-sm-3 sidebar spare">
+            <button id="create-button" class="btn btn-green">Create New Story</button>
+            <div id="descriptors">
+                <ul class="list-group">
+                    <li class="list-group-item storyDescriptor">Story</li>
+                    <li class="list-group-item storyDescriptor">Story</li>
+                    <li class="list-group-item storyDescriptor">Story</li>
+                    <li class="list-group-item storyDescriptor">Story</li>
+                </ul>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a data-toggle="tab" href="#home">Home <span class="sr-only">(current)</span></a></li>
-                    <li><a data-toggle="tab" href="#create">Create a Story</a></li>
-                </ul>
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search Stories">
-                    </div>
-                    <button type="submit" class="btn btn-default">Search</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a data-toggle="tab" href="#help">Help</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-
-    <!--
-        Content
-    -->
-
-
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-          <h3>StoryTime</h3>
-          <h5>The App for Tall Tales and Fables</h5>
-          <p>Really cool description text</p>
         </div>
-        <div id="create" class="tab-pane fade">
-          <div id="creation-form" class="container-fluid">
-              <div class="row separate">
-                  <label for="#story-title" class="theme titles">Story Title</label><br>
-                  <div class="col-sm-12 left-justified">
-                      <h2 class="bare">
-                          <input type="text" size="52" placeholder="Title"></input>
-                      </h2>
-                  </div>
-              </div>
-              <div class="row separate">
-                  <label for="#characters-box" class="theme titles">Characters</label>
-                  <div class="col-sm-4 left-justified">
-                      <input type="text" size="30" id="character-maker"><br>
-                      <button id="create-character" class="btn btn-primary separate">Create</button>
-                  </div>
-                  <div class="col-sm-8 left-justified">
-                      <div id="characters-box" class="box"></div>
-                  </div>
-              </div>
-              <div class="row separate">
-                  <label for="#story-prompt" class="theme titles">Story Prompt</label><br>
-                  <div class="col-sm-12 left-justified">
-                      <h2 class="bare">
-                          <input type="text" size="52" placeholder="Title"></input>
-                      </h2>
-                  </div>
-              </div>
-              <div class="row separate">
-                  <button class="btn btn-success" id="create_story">Create</button>
-              </div>
-          </div>
-        </div>
-        <div id="adv-search" class="tab-pane fade">
-          <h3>Find a Story</h3>
-        </div>
-        <div id="view_story" class="tab-pane fade">
-            <h1>Story View</h1>
-            <div id="story-content"><div>
+        <div class="col-sm-9 spare">
+            <div id="story"></div>
         </div>
     </div>
-
 </body>
 </html>
