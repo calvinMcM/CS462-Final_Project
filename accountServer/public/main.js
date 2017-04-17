@@ -3,9 +3,10 @@ $(document).ready(function(){
     var storyContainer = $('#story');
     var createNewStoryButton = $('#create-button');
 
-    var storytimeid = sessionStorage.getItem("StoryTimeID");
+    var storytimeid = sessionStorage.getItem("storytimeid");
     if(!storytimeid){
-        // window.location.href = "http://34.208.82.175:3000";
+        // window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
+        storytimeid = "testID";
     }
 
     function buildStory(){
@@ -57,8 +58,18 @@ $(document).ready(function(){
         }
     }
 
+    function getAllStories(){
+        $.get(storytimeid + "/stories/",null,function(response){
+
+        })
+    }
+
     function pollServer(){
 
+    }
+
+    function clearStoryArea(){
+        storyContainer.empty();
     }
 
     function buildNewStory(){
@@ -77,9 +88,15 @@ $(document).ready(function(){
         saveButton.addClass('btn btn-green')
         saveButton.on('click',function(){
             let titleText = $('#storyTitle').val();
+            let fileName = titleText.replace(" ","") + ".txt";
             let storyText = $('#storyText').val();
-            let data = {title:titleText, story:[storyText], author:"Insert ID here"}
-            console.log("Now Saving Story:",data);
+            let file = {title:titleText, story:[storyText], author:"Insert ID here"}
+
+            console.log("Now Saving Story:",fileName);
+            $.post(storytimeid + "/stories/" + fileName, file, function(response){
+                console.log("Save response:",response);
+                clearStoryArea();
+            })
         });
         storyBox.append(saveButton);
 
