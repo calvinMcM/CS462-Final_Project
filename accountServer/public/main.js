@@ -109,7 +109,7 @@ $(document).ready(function(){
                     console.log("Sending:",toSend);
                     $.post("/subscribe",toSend,
                     function(response){
-                        populateDescriptors();
+                        getAllStoryDescriptors();
                     })
                 });
                 entry.append(button);
