@@ -103,11 +103,10 @@ function run(config){
     var storyObject = {"name": fileName, "url": url, "title":file.title, "author":users[id].username}
     users[id].personal_story_descriptors.push(storyObject)
     res.end()
-    var body = {"story_descriptor": fileName, "owner": id, "port": config.port}
     for (subscription of users[id].subscriptions) {
       request.post({
         url: subscription,
-        form: body
+        form: storyObject
       })
     }
   })
