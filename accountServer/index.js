@@ -14,7 +14,7 @@ app.use(express.static('public'));
 const fs = require('fs');
 
 //URL to the login/registry server
-var registry = "http://34.208.82.175:3000"
+var registry = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000"
 
 // Read configuration file before running.
 fs.readFile('config.json',function(err,data){
@@ -39,7 +39,16 @@ function register(data){
 
 function run(config){
 
-  var users = {}
+  var users = {
+      "testID": {
+                    "id": "testID",
+                    "username": "testAccount",
+                    "subscriptions": [],
+                    "personal_story_descriptors": [],
+                    "personal_stories": {},
+                    "subscription_story_descriptors": {}
+                }
+  }
 
   app.get('/', function (req, res) {
     res.sendFile('views/index.html',{root: __dirname})
@@ -83,13 +92,16 @@ function run(config){
   app.post('/:id/stories/:file', function(req, res) {
     var id = req.params.id
     var fileName = req.params.file
-    var file = req.body.file
-    users[id].personal_stories[fileName] = {}
-    users[id].personal_stories[fileName].story = []
-    users[id].personal_stories[fileName].story.push(file)
+    var file = req.body.file;
+    if(!users.hasOwnProperty(id)){
+        res.sendStatus(403);
+        res.end();
+        return;
+    }
+    users[id].personal_stories[fileName] = file
     var url = "http://" + req.get('host')
     url += '/' + id + '/stories/' + fileName
-    var storyObject = {"name": fileName, "url": url}
+    var storyObject = {"name": fileName, "url": url, "title":file.title, "author":users[id].username}
     users[id].personal_story_descriptors.push(storyObject)
     res.end()
     var body = {"story_descriptor": fileName, "owner": id, "port": config.port}
@@ -129,12 +141,12 @@ function run(config){
     subscriber = req.body.subscriber
     users[body.id].subscription_story_descriptors[subscriber] = []
     res.end()
+    var urlToHit = req.body.url + '/' + subscriber + '/subscribe'
     request.post({
-      url: req.body.url,
+      url: urlToHit,
       form: config
     }, function(err, response){
       var stories = JSON.parse(response.body)
-      console.log(stories)
       for (story of stories) {
         users[body.id].subscription_story_descriptors[subscriber].push(story)
       }
