@@ -129,15 +129,12 @@ function run(config){
 
   //Add a subscriptions (used in browser)
   app.post('/subscribe', function(req, res) {
-    console.log("Body:", req.body)
     var body = config
     body.id = req.body.id
     subscriber = req.body.subscriber
     users[body.id].subscription_story_descriptors[subscriber] = []
     res.end()
-    console.log("Subscriber ID:", subscriber)
     var urlToHit = req.body.url + '/' + subscriber + '/subscribe'
-    console.log("URL to hit:", urlToHit)
     request.post({
       url: urlToHit,
       form: config
@@ -154,8 +151,6 @@ function run(config){
     var url = "http://" + req.ip.substring(7, req.ip.length)
     url += ':' + req.body.port + '/' + req.body.id + '/update'
     var id = req.params.id
-    console.log("ID:", id)
-    console.log(users)
     users[id].subscriptions.push(url)
     res.send(users[id].personal_story_descriptors)
   })
