@@ -144,7 +144,7 @@ $(document).ready(function(){
         saveButton.addClass('btn btn-green')
         saveButton.on('click',function(){
             let titleText = $('#storyTitle').val();
-            let fileName = titleText.replace(" ","") + ".txt";
+            let fileName = titleText.replace("(\s|\?|\#)","") + ".txt";
             let storyText = $('#storyText').val();
             let file = {file:{title:titleText, story:[storyText], author: storytimeid}}
 
