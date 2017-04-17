@@ -90,6 +90,7 @@ $(document).ready(function(){
     }
 
     function populateFriendsList(list){
+        clearStoryArea();
         for(let item of list){
             var entry = $('<div class="storyDescriptor">' + item.username + '</div>');
             entry.on("click",function(){
@@ -100,8 +101,9 @@ $(document).ready(function(){
                 },
                 function(response){
                     populateDescriptors();
-                });
-            })
+                })
+            });
+            storyContainer.append(entry);
         }
     }
 
