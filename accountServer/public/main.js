@@ -4,10 +4,10 @@ $(document).ready(function(){
     var createNewStoryButton = $('#create-button');
     var descriptorsList = $('#descriptorsList');
 
-    var storytimeid = localStorage.getItem("storytimeid");
+    var storytimeid = sessionStorage.getItem("StoryTimeID");
     if(!storytimeid){
-        console.log("NO SESSSION STORAGE")
-        window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
+        console.log("NO LOCAL STORAGE")
+        // window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
         // storytimeid = "testID";
     }
 

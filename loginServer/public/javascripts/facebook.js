@@ -67,7 +67,7 @@
    var userInfo = {"username": facebookUser.name, "userId": facebookUser.id}
    console.log("waiting for facebook response")
    // Session storage set
-   localStorage.setItem("StoryTimeID",facebookUser.id);
+   sessionStorage.setItem("StoryTimeID",facebookUser.id);
    $.post('facebookCallback', userInfo, function(data) {
      console.log("redirecting to: ", data.url)
      window.location = data.url
