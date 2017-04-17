@@ -71,9 +71,9 @@ function run(config){
 
   //Gets all users from the registry
   app.get('/users', function(req, res) {
-      console.log("Going to go get ma users...")
+    console.log("Going to go get ma users...")
     request.get(registry + "allUsers", function(err, data) {
-        console.log("Users obtained:",data.body);
+      console.log("Users obtained:",data.body);
       res.send(JSON.parse(data.body))
     })
   })
