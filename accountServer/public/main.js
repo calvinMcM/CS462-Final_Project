@@ -28,7 +28,7 @@ $(document).ready(function(){
         var textAdd = $("<h1>Next Line:</h1><textarea id='storyAdd' style='width: 100%' rows='3' class='darkField' placeholder='All of the sudden...'></textarea>");
         storyBox.append(textAdd);
 
-        var saveButton = $('<button>Add</button>')
+        var saveButton = $('<button>Add</button>');
         saveButton.addClass('btn btn-green')
         saveButton.on('click',function(){
             var addition = $('#storyAdd').val();
@@ -39,10 +39,16 @@ $(document).ready(function(){
                 data:{addition:addition}
             }).done(function(response){
                 console.log("Story Added to!");
-                setTimeout(function(){ element.click(); },1000);
+                setTimeout(function(){ element.click(); },100);
             });
         });
         storyBox.append(saveButton);
+
+        var closeButton = $('<button class="btn btn-red">Close</button>');
+        closeButton.on('click',function(){
+            clearStoryArea();
+        })
+        storyBox.append(closeButton);
 
         storyContainer.append(storyBox);
     }
@@ -118,6 +124,12 @@ $(document).ready(function(){
             })
         });
         storyBox.append(saveButton);
+
+        var closeButton = $('<button class="btn btn-red">Nevermind</button>');
+        closeButton.on('click',function(){
+            clearStoryArea();
+        })
+        storyBox.append(closeButton);
 
         storyContainer.append(storyBox);
     }

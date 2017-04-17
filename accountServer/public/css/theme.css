@@ -97,6 +97,11 @@
     margin: 0 10px 5px 0;
 }
 
+.btn-red{
+    background-color: #E80019;
+    margin: 0 10px 5px 0;
+}
+
 .sd-author{
     color: #bbbbbb;
     margin-left: 5px;
