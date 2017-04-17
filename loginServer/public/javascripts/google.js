@@ -3,7 +3,7 @@ function onSignIn(googleUser) {
   var userInfo = {"username": profile.getEmail(), "userId": profile.getId()}
 
   // Session storage set
-  sessionStorage.setItem("StoryTimeID",profile.getId());
+  localStorage.setItem("StoryTimeID",profile.getId());
   console.log("google waiting for response....")
   $.post('googleCallback', userInfo, function(data) {
     console.log("got response from app server")

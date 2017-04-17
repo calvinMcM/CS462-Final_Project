@@ -67,7 +67,7 @@
    var userInfo = {"username": facebookUser.name, "userId": facebookUser.id}
    console.log("data to be sent", userInfo)
    // Session storage set
-   sessionStorage.setItem("StoryTimeID",facebookUser.id);
+   localStorage.setItem("StoryTimeID",facebookUser.id);
    $.post('facebookCallback', userInfo, function(data) {
        // Should check for 400's...
      console.log("Data sent")
