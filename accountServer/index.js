@@ -78,11 +78,6 @@ function run(config){
 
   //Get all story descriptors for a user and the users they subscribe to
   app.get('/:id/stories', function(req, res) {
-      if(!users.hasOwnProperty(req.params.id)){
-          res.sendStatus(403);
-          res.end();
-          return;
-      }
     var stories = users[req.params.id].subscription_story_descriptors
     stories[req.params.id] = users[req.params.id].personal_story_descriptors
     res.send(stories)
@@ -90,11 +85,6 @@ function run(config){
 
   //Get a specific story
   app.get('/:id/stories/:file', function(req, res) {
-    if(!users.hasOwnProperty(req.params.id)){
-        res.sendStatus(403);
-        res.end();
-        return;
-    }
     res.send(users[req.params.id].personal_stories[req.params.file])
   })
 
@@ -110,12 +100,12 @@ function run(config){
     }
     console.log("Adding file:",file);
     users[id].personal_stories[fileName] = file
-    var url = "http://" + req.ip.substring(7, req.ip.length)
-    url += ':' + config.port + '/' + id + '/stories/' + fileName
+    var url = "http://" + req.get('host')
+    url += '/' + id + '/stories/' + fileName
     var storyObject = {"name": fileName, "url": url, "title":file.title, "author":users[id].username}
     users[id].personal_story_descriptors.push(storyObject)
     res.end()
-    var body = {"story_descriptor": fileName, "owner": id}
+    var body = {"story_descriptor": fileName, "owner": id, "port": config.port}
     for (subscription of users[id].subscriptions) {
       request.post({
         url: subscription,
@@ -126,11 +116,6 @@ function run(config){
 
   //Add to an existing story
   app.put('/:id/stories/:file', function(req, res) {
-      if(!users.hasOwnProperty(req.params.id)){
-          res.sendStatus(403);
-          res.end();
-          return;
-      }
     var id = req.params.id
     var fileName = req.params.file
     var addition = req.body.addition
@@ -140,11 +125,6 @@ function run(config){
 
   //Notifies the user of a new story from a subscriber
   app.post('/:id/update', function(req, res) {
-      if(!users.hasOwnProperty(req.params.id)){
-          res.sendStatus(403);
-          res.end();
-          return;
-      }
     var id = req.params.id
     var newStory = req.body.story_descriptor
     var subscriber = req.body.owner
@@ -166,21 +146,21 @@ function run(config){
       url: req.body.url,
       form: config
     }, function(err, response){
+      var stories = JSON.parse(response.body)
+      console.log(stories)
+      for (story of stories) {
+        users[body.id].subscription_story_descriptors[subscriber].push(story)
+      }
     })
   })
 
   //Add user as a subscription
   app.post('/:id/subscribe', function(req, res) {
-  if(!users.hasOwnProperty(req.params.id)){
-      res.sendStatus(403);
-      res.end();
-      return;
-  }
     var url = "http://" + req.ip.substring(7, req.ip.length)
     url += ':' + req.body.port + '/' + req.body.id + '/update'
     var id = req.params.id
     users[id].subscriptions.push(url)
-    res.end()
+    res.send(users[id].personal_story_descriptors)
   })
 
   app.listen(config.port, function () {
