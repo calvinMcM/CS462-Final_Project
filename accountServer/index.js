@@ -98,7 +98,6 @@ function run(config){
         res.end();
         return;
     }
-    console.log("Adding file:",file);
     users[id].personal_stories[fileName] = file
     var url = "http://" + req.get('host')
     url += '/' + id + '/stories/' + fileName
@@ -142,12 +141,12 @@ function run(config){
     subscriber = req.body.subscriber
     users[body.id].subscription_story_descriptors[subscriber] = []
     res.end()
+    var urlToHit = req.body.url + '/' + subscriber + '/subscribe'
     request.post({
-      url: req.body.url + subscriber + '/subscribe',
+      url: urlToHit,
       form: config
     }, function(err, response){
       var stories = JSON.parse(response.body)
-      console.log(stories)
       for (story of stories) {
         users[body.id].subscription_story_descriptors[subscriber].push(story)
       }
@@ -156,6 +155,7 @@ function run(config){
 
   //Add user as a subscription
   app.post('/:id/subscribe', function(req, res) {
+    console.log("Endpoint hit!")
     var url = "http://" + req.ip.substring(7, req.ip.length)
     url += ':' + req.body.port + '/' + req.body.id + '/update'
     var id = req.params.id
