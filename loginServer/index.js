@@ -80,11 +80,13 @@ function fromLoginGetDatabaseInfo(userID, username, res){
               return;
             }
         }
+        console.log("requesting response from app server at: " + user.url + "/userLogin")
         request.post({
             url: user.url + "/userLogin",
             form: user
         },
         function(response){
+            console.log("got a response from the app server")
             res.json({
               "id": userID,
               "url": user.url
@@ -123,6 +125,7 @@ function run(config){
     app.post('/facebookCallback', function (req, res) {
       console.log("Got something back from Facebook")
       console.log(req.body)
+      var url = fromLoginGetDatabaseInfo(req.body.userId, req.body.username, res)
     })
 
     /**
@@ -130,6 +133,7 @@ function run(config){
      *
      */
     app.post('/googleCallback', function (req, res) {
+      console.log("got something back from Google")
       var url = fromLoginGetDatabaseInfo(req.body.userId, req.body.username, res)
     })
 

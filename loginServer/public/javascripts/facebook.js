@@ -68,10 +68,10 @@
    console.log("data to be sent", userInfo)
    // Session storage set
    sessionStorage.setItem("StoryTimeID",facebookUser.id);
-   $.post('googleCallback', userInfo, function(data) {
+   $.post('facebookCallback', userInfo, function(data) {
        // Should check for 400's...
      console.log("Data sent")
      console.log("recieved data", data)
-     //window.location = data.url
+     window.location = data.url
    })
  }
