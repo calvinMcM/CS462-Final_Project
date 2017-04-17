@@ -76,6 +76,13 @@
     background-color: #555555;
 }
 
+.storyLine{
+    border-radius: 5px;
+    width: 100%;
+    padding: 3px;
+    margin: 4px;
+}
+
 .titleBox{
     border: solid 1px #aaaaaa;
 }
