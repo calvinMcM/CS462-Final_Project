@@ -87,12 +87,12 @@ function run(config){
     users[id].personal_stories[fileName] = {}
     users[id].personal_stories[fileName].story = []
     users[id].personal_stories[fileName].story.push(file)
-    var url = "http://" + req.ip.substring(7, req.ip.length)
-    url += ':' + config.port + '/' + id + '/stories/' + fileName
+    var url = "http://" + req.get('host')
+    url += '/' + id + '/stories/' + fileName
     var storyObject = {"name": fileName, "url": url}
     users[id].personal_story_descriptors.push(storyObject)
     res.end()
-    var body = {"story_descriptor": fileName, "owner": id}
+    var body = {"story_descriptor": fileName, "owner": id, "port": config.port}
     for (subscription of users[id].subscriptions) {
       request.post({
         url: subscription,
