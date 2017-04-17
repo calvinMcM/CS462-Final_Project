@@ -8,6 +8,6 @@ function onSignIn(googleUser) {
   $.post('googleCallback', userInfo, function(data) {
     console.log("got response from app server")
       // Should check for 400's...
-    window.location = data.url
+    window.location = data.url + "?id=" + profile.getId();
   })
 }
