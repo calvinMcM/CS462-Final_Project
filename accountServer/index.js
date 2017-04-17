@@ -40,14 +40,6 @@ function register(data){
 function run(config){
 
   var users = {
-      "testID": {
-                    "id": "testID",
-                    "username": "testAccount",
-                    "subscriptions": [],
-                    "personal_story_descriptors": [],
-                    "personal_stories": {},
-                    "subscription_story_descriptors": {}
-                }
   }
 
   app.get('/', function (req, res) {
