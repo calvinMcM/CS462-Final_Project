@@ -25,6 +25,14 @@
     margin: 0;
 }
 
+.spare{
+    padding: 0;
+}
+
+.padded{
+    padding: 8px;
+}
+
 .titles{
     font-size: 25px;
     border-radius: 5px;
@@ -34,6 +42,52 @@
 }
 
 .black{
-    background-color: black;
+    background-color: #222222;
     color: white;
+}
+
+.sidebar{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    background-color: #383838;
+    padding: 15px 0 15px 0;
+    border-top-right-radius: : 5px;
+    border-bottom-right-radius: : 5px;
+}
+
+.storyDescriptor{
+    background-color:#555555;
+    color:white;
+    margin-right: 10px;
+}
+
+.baselined{
+    border-bottom: solid #888888 2px;
+}
+
+.story-box{
+    background-color: #383838;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.darkField{
+    background-color: #555555;
+}
+
+.storyLine{
+    border-radius: 5px;
+    width: 100%;
+    padding: 3px;
+    margin: 4px;
+}
+
+.titleBox{
+    border: solid 1px #aaaaaa;
+}
+
+.btn-green{
+    background-color: #0CB72B;
+    margin: 0 10px 5px 0;
 }
