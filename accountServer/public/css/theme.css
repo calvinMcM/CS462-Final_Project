@@ -52,8 +52,8 @@
     flex-flow: column;
     background-color: #383838;
     padding: 15px 0 15px 0;
-    border-top-right-radius: : 5px;
-    border-bottom-right-radius: : 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .storyDescriptor{
@@ -90,4 +90,14 @@
 .btn-green{
     background-color: #0CB72B;
     margin: 0 10px 5px 0;
+}
+
+.btn-blue{
+    background-color: #088DFE;
+    margin: 0 10px 5px 0;
+}
+
+.sd-author{
+    color: #bbbbbb;
+    margin-left: 5px;
 }

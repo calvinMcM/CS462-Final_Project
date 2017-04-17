@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     var storyContainer = $('#story');
     var createNewStoryButton = $('#create-button');
+    var descriptorsList = $('#descriptorsList');
 
     var storytimeid = sessionStorage.getItem("storytimeid");
     if(!storytimeid){
@@ -9,18 +10,20 @@ $(document).ready(function(){
         storytimeid = "testID";
     }
 
-    function buildStory(){
+    function buildStory(story = null){
 
-        let story = {
-            title: "Jack And Jill",
-            author: "Jane",
-            story:[
-                "Jack and Jill went up a hill",
-                "to fetch a pail of water",
-                "Jack fell down",
-                "And broke his crown",
-                "And Jill came tumbling after!"
-            ]
+        if(!story){
+            story = {
+                title: "Jack And Jill",
+                author: "Jane",
+                story:[
+                    "Jack and Jill went up a hill",
+                    "To fetch a pail of water",
+                    "Jack fell down",
+                    "And broke his crown",
+                    "And Jill came tumbling after!"
+                ]
+            }
         }
 
         storyContainer.empty();
@@ -41,8 +44,8 @@ $(document).ready(function(){
         var saveButton = $('<button>Save</button>')
         saveButton.addClass('btn btn-green')
         saveButton.on('click',function(){
-            story.story.push(textArea.val())
-            console.log("Now Saving Contribution Story:",data);
+            var addition = textArea.val();
+
         });
         storyBox.append(saveButton);
 
@@ -51,16 +54,26 @@ $(document).ready(function(){
     $(".storyDescriptor").on('click',buildStory);
 
     function populateDescriptors(descriptors){
-        for(var d of descriptors){
-            var frame = $("<li id='" + d.id + "' class='list-group-item storyDescriptor'>");
-
-
+        clearDescriptors();
+        for(let id in descriptors){
+            for(let storyDesc of descriptors[id]){
+                console.log("Descriptor:",storyDesc);
+                var frame = $("<li id='" + storyDesc.title + "' class='list-group-item storyDescriptor'>" + storyDesc.title + "<span class='sd-author'> | " + storyDesc.author + "</span></li>");
+                frame.on('click',function(){
+                    $.get(storyDesc.url,{},function(res){
+                        console.log("Retrieved story:",res);
+                        buildStory(res);
+                    })
+                })
+                descriptorsList.append(frame);
+            }
         }
     }
 
-    function getAllStories(){
+    function getAllStoryDescriptors(){
         $.get(storytimeid + "/stories/",null,function(response){
-
+            console.log("Story Descriptors:",response);
+            populateDescriptors(response);
         })
     }
 
@@ -70,6 +83,16 @@ $(document).ready(function(){
 
     function clearStoryArea(){
         storyContainer.empty();
+    }
+
+    function clearDescriptors(){
+        descriptorsList.empty();
+    }
+
+    function getFriendsList(){
+        $.get("users",null,function(response){
+            console.log("FriendsList:",response);
+        })
     }
 
     function buildNewStory(){
@@ -90,12 +113,12 @@ $(document).ready(function(){
             let titleText = $('#storyTitle').val();
             let fileName = titleText.replace(" ","") + ".txt";
             let storyText = $('#storyText').val();
-            let file = {title:titleText, story:[storyText], author:"Insert ID here"}
+            let file = {file:{title:titleText, story:[storyText], author: storytimeid}}
 
             console.log("Now Saving Story:",fileName);
             $.post(storytimeid + "/stories/" + fileName, file, function(response){
-                console.log("Save response:",response);
                 clearStoryArea();
+                getAllStoryDescriptors();
             })
         });
         storyBox.append(saveButton);
@@ -106,4 +129,6 @@ $(document).ready(function(){
     createNewStoryButton.on('click',buildNewStory);
 
 
+    // Final setup
+    getAllStoryDescriptors();
 });
