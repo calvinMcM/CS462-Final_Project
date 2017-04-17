@@ -124,12 +124,7 @@ function run(config){
   //Notifies the user of a new story from a subscriber
   app.post('/:id/update', function(req, res) {
     var id = req.params.id
-    var newStory = req.body.story_descriptor
-    var subscriber = req.body.owner
-    var url = "http://" + req.ip.substring(7, req.ip.length)
-    url += ':' + req.body.port + '/' + id + '/stories/' + newStory
-    var storyObject = {"name": newStory, "url": url}
-    users[id].subscription_story_descriptors[subscriber].push(storyObject)
+    users[id].subscription_story_descriptors[subscriber].push(req.body)
     res.end()
   })
 
