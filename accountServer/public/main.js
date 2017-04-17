@@ -89,6 +89,8 @@ $(document).ready(function(){
         })
     }
 
+    $('#subscribe-button').on("click",getFriendsList);
+
     function buildNewStory(){
         storyContainer.empty();
         var storyBox = $('<div>');

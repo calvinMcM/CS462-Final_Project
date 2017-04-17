@@ -14,7 +14,7 @@ app.use(express.static('public'));
 const fs = require('fs');
 
 //URL to the login/registry server
-var registry = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/"
+var registry = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000"
 
 // Read configuration file before running.
 fs.readFile('config.json',function(err,data){
@@ -71,7 +71,9 @@ function run(config){
 
   //Gets all users from the registry
   app.get('/users', function(req, res) {
-    request.get(registry + "/allUsers", function(err, data) {
+      console.log("Going to go get ma users...")
+    request.get(registry + "allUsers", function(err, data) {
+        console.log("Users obtained:",data.body);
       res.send(JSON.parse(data.body))
     })
   })

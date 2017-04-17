@@ -10,6 +10,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="css/theme.css"></link>
+    <script>
+        var id;
+        if(id = sessionStorage.getItem("StoryTimeID")){
+            // check which signin type it is
+            onSignIn();
+        }
+    </script>
 </head>
 <body class="backdrop">
     <div class="container-fluid">
