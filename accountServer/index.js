@@ -143,7 +143,7 @@ function run(config){
     users[body.id].subscription_story_descriptors[subscriber] = []
     res.end()
     request.post({
-      url: req.body.url,
+      url: req.body.url + subscriber + '/subscribe',
       form: config
     }, function(err, response){
       var stories = JSON.parse(response.body)
