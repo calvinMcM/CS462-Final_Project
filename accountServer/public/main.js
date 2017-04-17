@@ -44,7 +44,7 @@ $(document).ready(function(){
                 data:{addition:addition}
             }).done(function(response){
                 console.log("Story Added to!");
-                setTimeout(function(){ element.click(); },100);
+                setTimeout(function(){ element.click(); },1000);
             });
         });
         storyBox.append(saveButton);
@@ -83,8 +83,10 @@ $(document).ready(function(){
     }
 
     function pollServer(){
-
+        getAllStoryDescriptors();
+        setTimeout(pollServer,2000);
     }
+    pollServer();
 
     function clearStoryArea(){
         storyContainer.empty();
@@ -110,6 +112,7 @@ $(document).ready(function(){
                     $.post("/subscribe",toSend,
                     function(response){
                         getAllStoryDescriptors();
+
                     })
                 });
                 entry.append(button);
