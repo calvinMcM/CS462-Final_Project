@@ -96,11 +96,13 @@ $(document).ready(function(){
                 var entry = $('<div class="friendEntry"></div>');
                 var button = $('<button class="btn btn-green">Add</button>')
                 button.on("click",function(){
-                    $.post("/subscribe",{
+                    var toSend = {
                         id: storytimeid,
                         subscriber: item._id,
                         url: item.url
-                    },
+                    }
+                    console.log("Sending:",toSend);
+                    $.post("/subscribe",toSend,
                     function(response){
                         populateDescriptors();
                     })
