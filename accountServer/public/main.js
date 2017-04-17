@@ -6,8 +6,9 @@ $(document).ready(function(){
 
     var storytimeid = sessionStorage.getItem("storytimeid");
     if(!storytimeid){
-        // window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
-        storytimeid = "testID";
+        console.log("NO SESSSION STORAGE")
+        window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
+        // storytimeid = "testID";
     }
 
     function buildStory(story, desc, element){
