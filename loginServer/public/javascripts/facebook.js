@@ -69,7 +69,10 @@
    // Session storage set
    sessionStorage.setItem("StoryTimeID",facebookUser.id);
    $.post('facebookCallback', userInfo, function(data) {
-     console.log("redirecting to: ", data.url)
-     window.location = data.url
+
+       // Should check for 400's...
+     console.log("Data sent")
+     console.log("recieved data", data)
+     window.location = data.url + "?id=" + facebookUser.id
    })
  }

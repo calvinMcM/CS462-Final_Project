@@ -6,7 +6,10 @@ function onSignIn(googleUser) {
   sessionStorage.setItem("StoryTimeID",profile.getId());
   console.log("google waiting for response....")
   $.post('googleCallback', userInfo, function(data) {
-    console.log("redirecting to: ", data.url)
-    window.location = data.url
+
+    console.log("got response from app server")
+      // Should check for 400's...
+    window.location = data.url + "?id=" + profile.getId();
+
   })
 }
