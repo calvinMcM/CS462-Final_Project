@@ -4,14 +4,15 @@ $(document).ready(function(){
     var createNewStoryButton = $('#create-button');
     var descriptorsList = $('#descriptorsList');
 
-    var url = window.location.href;
-    var url = url.substring((url.indexOf('?id=')+3);
-    var storytimeid = url;
-    console.log("ID:",url)
-    if(!storytimeid){
-        console.log("NO STORAGE:",sessionStorage,localStorage);
+    try{
+        var url = window.location.href;
+        var url = url.substring((url.indexOf('?id=')+4));
+        var storytimeid = url;
+        console.log("ID:",url)
+    }
+    catch(e){
+        console.log("No storytimeid:",e);
         // window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
-        // storytimeid = "testID";
     }
 
     function buildStory(story, desc, element){
