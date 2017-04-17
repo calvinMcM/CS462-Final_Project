@@ -85,12 +85,13 @@ function fromLoginGetDatabaseInfo(userID, username, res){
             url: user.url + "/userLogin",
             form: user
         },
-        function(response){
-            console.log("got a response from the app server")
-            res.json({
-              "id": userID,
-              "url": user.url
-            })
+        function(error, response){
+
+              console.log("got a response from the app server")
+              res.json({
+                "id": userID,
+                "url": user.url
+              })
         })
       }
     })
@@ -103,6 +104,7 @@ function run(config){
     })
 
     app.get('/allUsers', function (req, res) {
+        console.log("hitting all users")
         userAccount.find(function(err,users) {
           if (err) return console.error(err);
           else {
@@ -115,7 +117,8 @@ function run(config){
     app.post('/registerAppServer', function(req, res, next) {
       var url = "http://" + req.ip.substring(7, req.ip.length);
       url += (':' + req.body.port);
-      registeredAppServers.push(url);
+      if (registeredAppServers.indexOf(url) < 0)
+        registeredAppServers.push(url);
       //server.save({"_id":url});
       console.log(registeredAppServers);
       res.send("your url was" + url);

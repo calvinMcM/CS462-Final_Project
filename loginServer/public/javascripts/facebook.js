@@ -65,10 +65,11 @@
 
  function onFacebookSignIn(facebookUser) {
    var userInfo = {"username": facebookUser.name, "userId": facebookUser.id}
-   console.log("data to be sent", userInfo)
+   console.log("waiting for facebook response")
    // Session storage set
    sessionStorage.setItem("StoryTimeID",facebookUser.id);
    $.post('facebookCallback', userInfo, function(data) {
+
        // Should check for 400's...
      console.log("Data sent")
      console.log("recieved data", data)
