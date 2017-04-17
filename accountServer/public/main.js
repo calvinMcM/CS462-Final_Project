@@ -17,7 +17,7 @@ $(document).ready(function(){
 
     function buildStory(story, desc, element){
 
-        console.log("Building Story");
+        console.log("Building Story:",story, desc, element);
         storyContainer.empty();
         var storyBox = $('<div>');
         storyBox.addClass("story-box");
