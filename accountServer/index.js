@@ -155,7 +155,6 @@ function run(config){
 
   //Add user as a subscription
   app.post('/:id/subscribe', function(req, res) {
-    console.log("Endpoint hit!")
     var url = "http://" + req.ip.substring(7, req.ip.length)
     url += ':' + req.body.port + '/' + req.body.id + '/update'
     var id = req.params.id
