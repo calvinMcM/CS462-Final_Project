@@ -107,3 +107,13 @@
     color: #bbbbbb;
     margin-left: 5px;
 }
+
+.friendEntry{
+    background-color:#555555;
+    color:white;
+    margin: 6px;
+    padding: 4px;
+    border: solid 1px white;
+    border-radius: 5px;
+    width: 100%;
+}

@@ -92,18 +92,23 @@ $(document).ready(function(){
     function populateFriendsList(list){
         clearStoryArea();
         for(let item of list){
-            var entry = $('<div class="storyDescriptor">' + item.username + '</div>');
-            entry.on("click",function(){
-                $.post(item.url,{
-                    id: storytimeid,
-                    subscriber: item._id,
-                    url: item.url
-                },
-                function(response){
-                    populateDescriptors();
-                })
-            });
-            storyContainer.append(entry);
+            if(storytimeid != item._id){
+                var entry = $('<div class="friendEntry"></div>');
+                var button = $('<button class="btn btn-green">Add</button>')
+                button.on("click",function(){
+                    $.post("/subscribe",{
+                        id: storytimeid,
+                        subscriber: item._id,
+                        url: item.url
+                    },
+                    function(response){
+                        populateDescriptors();
+                    })
+                });
+                entry.append(button);
+                entry.append("<h4 style='display:inline;'>" + item.username + "</h4>");
+                storyContainer.append(entry);
+            }
         }
     }
 
