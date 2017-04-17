@@ -8,7 +8,7 @@ $(document).ready(function(){
         var url = window.location.href;
         var url = url.substring((url.indexOf('?id=')+4));
         var storytimeid = url;
-        console.log("ID:",url)
+        console.log("ID:",url);
     }
     catch(e){
         console.log("No storytimeid:",e);
