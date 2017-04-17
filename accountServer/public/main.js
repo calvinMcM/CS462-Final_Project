@@ -44,7 +44,12 @@ $(document).ready(function(){
                 data:{addition:addition}
             }).done(function(response){
                 console.log("Story Added to!");
-                setTimeout(function(){ element.click(); },1000);
+                clearStoryArea();
+                buildStory(story,desc,element)
+                setTimeout(function(){
+                    buildStory(story,desc,element);
+                    element.click();
+                },1000);
             });
         });
         storyBox.append(saveButton);
@@ -111,8 +116,7 @@ $(document).ready(function(){
                     console.log("Sending:",toSend);
                     $.post("/subscribe",toSend,
                     function(response){
-                        getAllStoryDescriptors();
-
+                        setTimeout(getAllStoryDescriptors,750);
                     })
                 });
                 entry.append(button);
