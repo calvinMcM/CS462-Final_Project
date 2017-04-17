@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     var storytimeid = sessionStorage.getItem("StoryTimeID");
     if(!storytimeid){
-        console.log("NO LOCAL STORAGE")
+        console.log("NO STORAGE:",sessionStorage,localStorage);
         // window.location.href = "http://ec2-34-208-82-175.us-west-2.compute.amazonaws.com:3000/";
         // storytimeid = "testID";
     }
