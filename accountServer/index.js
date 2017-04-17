@@ -87,7 +87,10 @@ function run(config){
     users[id].personal_stories[fileName] = {}
     users[id].personal_stories[fileName].story = []
     users[id].personal_stories[fileName].story.push(file)
-    users[id].personal_story_descriptors.push(fileName)
+    var url = "http://" + req.ip.substring(7, req.ip.length)
+    url += ':' + config.port + '/' + id + '/stories/' + fileName
+    var storyObject = {"name": fileName, "url": url}
+    users[id].personal_story_descriptors.push(storyObject)
     res.end()
     var body = {"story_descriptor": fileName, "owner": id}
     for (subscription of users[id].subscriptions) {
@@ -112,7 +115,10 @@ function run(config){
     var id = req.params.id
     var newStory = req.body.story_descriptor
     var subscriber = req.body.owner
-    users[id].subscription_story_descriptors[subscriber].push(newStory)
+    var url = "http://" + req.ip.substring(7, req.ip.length)
+    url += ':' + req.body.port + '/' + id + '/stories/' + newStory
+    var storyObject = {"name": newStory, "url": url}
+    users[id].subscription_story_descriptors[subscriber].push(storyObject)
     res.end()
   })
 
