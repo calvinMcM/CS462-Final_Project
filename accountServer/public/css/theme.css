@@ -29,6 +29,10 @@
     padding: 0;
 }
 
+.padded{
+    padding: 8px;
+}
+
 .titles{
     font-size: 25px;
     border-radius: 5px;
@@ -60,6 +64,20 @@
 
 .baselined{
     border-bottom: solid #888888 2px;
+}
+
+.story-box{
+    background-color: #383838;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.darkField{
+    background-color: #555555;
+}
+
+.titleBox{
+    border: solid 1px #aaaaaa;
 }
 
 .btn-green{
