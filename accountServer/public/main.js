@@ -45,11 +45,11 @@ $(document).ready(function(){
             }).done(function(response){
                 console.log("Story Added to!");
                 clearStoryArea();
-                buildStory(story,desc,element)
-                setTimeout(function(){
-                    buildStory(story,desc,element);
-                    element.click();
-                },1000);
+                // buildStory(story,desc,element)
+                // setTimeout(function(){
+                //     buildStory(story,desc,element);
+                //     element.click();
+                // },1000);
             });
         });
         storyBox.append(saveButton);
