@@ -5,7 +5,7 @@ $(document).ready(function(){
     var descriptorsList = $('#descriptorsList');
 
     var url = window.location.href;
-    var url = url.substring((url.indexOf('?id=')+3);
+    var url = url.substring((url.indexOf('?id=')+4));
     var storytimeid = url;
     console.log("ID:",url)
     if(!storytimeid){
