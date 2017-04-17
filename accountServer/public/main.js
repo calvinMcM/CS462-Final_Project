@@ -89,9 +89,26 @@ $(document).ready(function(){
         descriptorsList.empty();
     }
 
+    function populateFriendsList(list){
+        for(let item of list){
+            var entry = $('<div class="storyDescriptor">' + item.username + '</div>');
+            entry.on("click",function(){
+                $.post(item.url,{
+                    id: storytimeid,
+                    subscriber: item._id,
+                    url: item.url
+                },
+                function(response){
+                    populateDescriptors();
+                });
+            })
+        }
+    }
+
     function getFriendsList(){
         $.get("users",null,function(response){
             console.log("FriendsList:",response);
+            populateFriendsList(response);
         })
     }
 
