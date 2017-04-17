@@ -10,22 +10,9 @@ $(document).ready(function(){
         storytimeid = "testID";
     }
 
-    function buildStory(story = null){
+    function buildStory(story, desc, element){
 
-        if(!story){
-            story = {
-                title: "Jack And Jill",
-                author: "Jane",
-                story:[
-                    "Jack and Jill went up a hill",
-                    "To fetch a pail of water",
-                    "Jack fell down",
-                    "And broke his crown",
-                    "And Jill came tumbling after!"
-                ]
-            }
-        }
-
+        console.log("Building Story");
         storyContainer.empty();
         var storyBox = $('<div>');
         storyBox.addClass("story-box");
@@ -38,20 +25,27 @@ $(document).ready(function(){
             storyBox.append($("<div class='darkField storyLine'>"+s+"<h4></h4></div>"))
         }
 
-        var textArea = $("<h1>Next Line:</h1><textarea id='storyText' style='width: 100%' rows='3' class='darkField' placeholder='All of the sudden...'></textarea>");
-        storyBox.append(textArea);
+        var textAdd = $("<h1>Next Line:</h1><textarea id='storyAdd' style='width: 100%' rows='3' class='darkField' placeholder='All of the sudden...'></textarea>");
+        storyBox.append(textAdd);
 
-        var saveButton = $('<button>Save</button>')
+        var saveButton = $('<button>Add</button>')
         saveButton.addClass('btn btn-green')
         saveButton.on('click',function(){
-            var addition = textArea.val();
-
+            var addition = $('#storyAdd').val();
+            console.log("Making Addition:",addition);
+            $.ajax({
+                method:"PUT",
+                url: desc.url,
+                data:{addition:addition}
+            }).done(function(response){
+                console.log("Story Added to!");
+                setTimeout(function(){ element.click(); },1000);
+            });
         });
         storyBox.append(saveButton);
 
         storyContainer.append(storyBox);
     }
-    $(".storyDescriptor").on('click',buildStory);
 
     function populateDescriptors(descriptors){
         clearDescriptors();
@@ -62,7 +56,7 @@ $(document).ready(function(){
                 frame.on('click',function(){
                     $.get(storyDesc.url,{},function(res){
                         console.log("Retrieved story:",res);
-                        buildStory(res);
+                        buildStory(res,storyDesc,frame);
                     })
                 })
                 descriptorsList.append(frame);
