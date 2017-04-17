@@ -56,15 +56,15 @@ function run(config){
 
   //Adds a user to the app server if they haven't already been added
   app.post('/userLogin', function(req, res) {
-    if (!users.hasOwnProperty(req.body._id)) {
+    if (!users.hasOwnProperty(req.body._doc._id)) {
       user = {
-        "id": req.body._id,
-        "username": req.body.username,
+        "id": req.body._doc._id,
+        "username": req.body._doc.username,
         "subscriptions": [],
         "personal_story_descriptors": [],
         "personal_stories": {},
         "subscription_story_descriptors": {}}
-      users[req.body._id] = user
+      users[req.body._doc._id] = user
     }
     res.send(users[req.body._id])
   })
@@ -136,12 +136,15 @@ function run(config){
 
   //Add a subscriptions (used in browser)
   app.post('/subscribe', function(req, res) {
+    console.log("Body:", req.body)
     var body = config
     body.id = req.body.id
     subscriber = req.body.subscriber
     users[body.id].subscription_story_descriptors[subscriber] = []
     res.end()
+    console.log("Subscriber ID:", subscriber)
     var urlToHit = req.body.url + '/' + subscriber + '/subscribe'
+    console.log("URL to hit:", urlToHit)
     request.post({
       url: urlToHit,
       form: config
@@ -158,6 +161,8 @@ function run(config){
     var url = "http://" + req.ip.substring(7, req.ip.length)
     url += ':' + req.body.port + '/' + req.body.id + '/update'
     var id = req.params.id
+    console.log("ID:", id)
+    console.log(users)
     users[id].subscriptions.push(url)
     res.send(users[id].personal_story_descriptors)
   })
